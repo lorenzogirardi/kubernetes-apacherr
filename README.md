@@ -88,6 +88,11 @@ and honor the DMZ (if needed ?!?!) on top by ingress/haproxy/bigf5 (where maybe 
 
 ## Implementation
 
-The code in this project is designet to be managed apache configuration by configmap,  
-however some websites are really complex and the confib
+The code in this project is designet to manage apache configuration by configmap,  
+however some websites are really complex and there are some limits implication with etd max object size.   
+
+In this scenario it's higly raccomended to deploy the release with a standard pipeline with compiled  
+container on the source.
+
+
 
