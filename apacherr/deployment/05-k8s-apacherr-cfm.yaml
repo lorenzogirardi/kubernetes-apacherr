@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: apacherr-80-config
+  namespace: apacherr
+data:
+  proxy-home.conf: |
+    <VirtualHost *:80>
+    ServerAdmin email@example.com
+    DocumentRoot /usr/local/apache2/htdocs/
+    ServerName www.example.com
+    ServerAlias ecample
+    ErrorLog logs/example-error_log
+    CustomLog logs/example-access_log combined
+
+    Timeout 300
+    KeepAlive On
+    MaxKeepAliveRequests 100
+    KeepAliveTimeout 15
+
+    ProxyRequests Off
+    ProxyPreserveHost On
+    UseCanonicalName On
+    <Location />
+    ProxyPass  http://cms.example.local/
+    </Location>
+    <Location /customers/>
+    ProxyPass  http://customers.secure.local/
+    </Location>
+    <Location /secure/>
+    ProxyPreserveHost off
+    ProxyPass  http://secure.example.local/
+    </Location>
+    </VirtualHost>
+
