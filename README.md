@@ -32,6 +32,40 @@ and if tomorrow we will open APAC ... what we have to do ?
 and if we need to cover a former third parti company and acquire his seo ranking we should create  
 thousands of redirects ? and how we can can validate avoiding loops ?  
 
+A better design start giving the right responsability , that could be managed using a business layer  
+that we can call "front controller" where we can apply all rules.
+
+In terms of responsability all applaction behind this layer should be working by selfcontained logic  
+example... if i have a seo application this should be working without this layer , removing direct dependency  
+same concept for cms application , customers application and so on.  
+So what this layer will do ?  
+
+A front controller should be the owner of root path of our websites "/"  
+Should be also responsible to handle all the others paths after the root ones.  
+
+Main duties:  
+ - handle all requests and manage the backend application with business logic
+ - provide dynamic path based on business rules (language + brand + something else)
+ - provide the AB test logic
+ - provide a validation logic
+ - expose a company backoffice to trim the website layout
+
+
+
+Examples
+
+Having a global websites spread with multiple countris with differents domains/brands and languages we can immagine  
+
+![frontcontroller](https://res.cloudinary.com/ethzero/image/upload/c_scale,w_640/v1582289285/misc/front-controller.png)
+
+Where the microservice/application CMS is responsible to hangle all domains and all languages and the   
+front controller take the ownership to match brand plus .tld (or paths "/fr/")  
+in order to dinamically generate the right url with canonical pages.  
+
+Many and many others assumptions can be covered by this componet, however we have to stay grounded  
+and check how we can manage an apache responsible to redirects proxypass an rewrite rules.  
+
+
 
 
 
@@ -49,4 +83,11 @@ A product that own a dedicated business, like seo, sem , vanity urls etc etc.
 
 Having those considerations, we can "downgrade" apache httpd in layer 2 like any application  
 and honor the DMZ (if needed ?!?!) on top by ingress/haproxy/bigf5 (where maybe we can terminate the TLS).
+
+
+
+## Implementation
+
+The code in this project is designet to be managed apache configuration by configmap,  
+however some websites are really complex and the confib
 
