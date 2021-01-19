@@ -9,7 +9,7 @@ data:
     ServerAdmin email@example.com
     DocumentRoot /usr/local/apache2/htdocs/
     ServerName www.example.com
-    ServerAlias ecample
+    ServerAlias example
     ErrorLog logs/example-error_log
     CustomLog logs/example-access_log combined
 
